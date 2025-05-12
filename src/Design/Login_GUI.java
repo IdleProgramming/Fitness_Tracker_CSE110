@@ -32,11 +32,11 @@ public class Login_GUI
 
 
         /*Title_Label*/
-        JLabel Title = new JLabel("OmniCoreFitness");/*Instance of JLabel named Title with text*/
+        JLabel Title = new JLabel("Atlas Fitness");/*Instance of JLabel named Title with text*/
         Font titleFont = new Font("SansSerif", Font.BOLD, 50);/*Nifty way to specify a font with bold & size*/
         Title.setFont(titleFont);/*Attaches titleFont specs to Title text*/
 
-        Title.setBounds(85,50,500,75);/*Boundaries for text*/
+        Title.setBounds(140,50,500,75);/*Boundaries for text*/
         Title.setForeground(new Color(255, 215, 0));/*Attaches custom colour to Title text*/
         login_interface.add(Title);/*Adds label to frame*/
 
