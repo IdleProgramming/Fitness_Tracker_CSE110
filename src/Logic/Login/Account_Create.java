@@ -7,62 +7,6 @@ import java.io.BufferedReader;
 import java.io.FileReader; 
 /*File reader can read directly from files but it only reads one character at a time*/
 import java.io.IOException;
-/*Is used here to help process when an account being signed into does not exist in files*/
-
-
-
-
-
-/*public class Account_Create {
-    public static boolean createAccount(String username, String password) {
-        try {
-            // Check for blank input
-            if (username.isEmpty() || password.isEmpty()) {
-                System.out.println("Username or password cannot be blank.");
-                return false;
-            }
-
-            // Use relative path
-            File userFile = new File("users.txt");
-
-            // Create the file if it doesn't exist
-            if (!userFile.exists()) {
-                userFile.createNewFile();
-            }
-
-            boolean Dupe = false;
-            BufferedReader checker = new BufferedReader(new FileReader(userFile));
-            String line;
-
-            while ((line = checker.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length == 2 && parts[0].equals(username) && parts[1].equals(password)) {
-                    Dupe = true;
-                    break;
-                }
-            }
-            checker.close();
-
-            if (Dupe) {
-                System.out.println("This username and password already exist, please try again.");
-                return false;
-            } else {
-                FileWriter fileInput = new FileWriter(userFile, true);
-                fileInput.write(username + "," + password + "\n");
-                fileInput.close();
-                System.out.println("User Registered Successfully");
-                return true;
-            }
-
-        } catch (IOException e) {
-            System.out.println("An error occurred: " + e.getMessage());
-            return false;
-        }
-    }
-}
-    */
-
-
 
 public class Account_Create
 {
