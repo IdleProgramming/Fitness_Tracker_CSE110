@@ -5,6 +5,7 @@ import javax.swing.*;
 import Logic.Login.CheckFromFiles;
 /*Imports CheckFromFiles from another package*/
 
+
 public class LogInFrame extends JFrame 
 {
     public LogInFrame() 
@@ -45,7 +46,15 @@ public class LogInFrame extends JFrame
             /*Used to check if program succeeds or fails*/
             new ResultFrame(success ? "Log in Successful. Welcome "+user : "Login Failed, Please try again.");
             /*Success ? acts as if(true) i think and the colon acts like an else*/
+
+            /*Redirects to Main_GUI after success is confirmed*/
+            if (success == true) 
+            {
+                this.dispose(); /*Exits the LogInFrame*/
+                SwingUtilities.invokeLater(() -> new Main_GUI()); /*Opens the main GUI*/
+            }
         });
+
 
         setVisible(true);
     }
