@@ -1,6 +1,7 @@
 package Logic.Login;
 
 import java.io.BufferedReader;
+import java.io.File;
 /*Buffered reader cannot read directly from files but it can read whole blocks of characters at a time */
 import java.io.FileReader; 
 /*File reader can read directly from files but it only reads one character at a time*/
@@ -15,6 +16,7 @@ public class CheckFromFiles
 {
     public static boolean loginAccount(String username, String password) 
     {
+
         ArrayList<String[]> Users = loadUsers("users.txt");
         /*Method loadUsers is used to read a file called "users.txt".*/
 
@@ -42,8 +44,17 @@ public class CheckFromFiles
         /*Empty list used to store each username-password pair (identical to multidimensional array)*/
 
         /*Opens file to read*/
-        try(BufferedReader reader = new BufferedReader(new FileReader(filename))) 
+        try
         {
+            /*Creates File if it doesnt exist*/     
+            File file = new File("users.txt");
+            if (!file.exists()) 
+            {
+                file.createNewFile();  
+            }
+
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+
             String line;
 
             /*Reads each line of the file till no lines remain(null)*/
@@ -58,6 +69,7 @@ public class CheckFromFiles
                 }   
                 /*Ensures exactly two parts are found, trims username and adds to list*/
             }
+            reader.close();/*Prevent Resource leak*/
         }
         catch (IOException e) 
         {
