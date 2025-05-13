@@ -4,6 +4,7 @@ import javax.swing.*;
 /*Imports the Swing library*/
 import java.awt.*;
 /*Imports the Java Abstract Window Toolkit(AWT)*/
+import Logic.Functions.Daily_Activity;
 
 
 
@@ -83,21 +84,6 @@ public class Main_GUI extends JFrame
         GoalLog.setFont(buttonFont);
 
 
-        /*TextArea to display results*/
-        JTextArea resultArea = new JTextArea();
-        resultArea.setEditable(false);
-        resultArea.setLineWrap(true);
-        resultArea.setWrapStyleWord(true);
-        resultArea.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        resultArea.setBackground(Color.WHITE);
-        resultArea.setForeground(Color.BLACK);
-
-        JScrollPane scrollPane = new JScrollPane(resultArea);
-        scrollPane.setBounds(30, 250, 460, 300);
-        scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
-        RightPanel.setLayout(null);
-
-
         /*Additions to frame*/
         add(TopPanel);
         add(LeftPanel);
@@ -112,12 +98,86 @@ public class Main_GUI extends JFrame
         LeftPanel.add(NutritionLog);
         LeftPanel.add(GoalLog);
 
-        /*Addtions to RightPanel*/
-        RightPanel.add(scrollPane);
+        /*Action Listener for ActivityCheck Button*/
+        ActivityCheck.addActionListener(e -> 
+        {
+            /*Clears previous textArea and labels from previous buttons hopefully*/
+            RightPanel.removeAll();
+
+
+            /*Options for selection using a comboBox which should allow 3 options to be displayed*/
+            JLabel ActivityChoice = new JLabel("Choose Activity: ");
+            ActivityChoice.setBounds(30,20,150,25);
+
+            String[] Options = {"Walking","Running","Cycling"};
+            JComboBox<String> Boxin = new JComboBox<>(Options);
+            Boxin.setBounds(180, 20, 150, 25);
+
+
+            /*Time Walked,Ran etc in MINUTES(IMPORTANT)*/
+            JLabel timeSelect = new JLabel("Duration (Min): ");
+            timeSelect.setBounds(30, 60, 150, 25);
+
+            JTextField timeField = new JTextField();
+            timeField.setBounds(180, 60, 100, 25);
+
+
+            /*Distance Input in KILOMETRES(IMPORTANT)*/
+            JLabel distanceSelect = new JLabel("Distance (km):");
+            distanceSelect.setBounds(30, 100, 150, 25);
+
+            JTextField distanceField = new JTextField();
+            distanceField.setBounds(180, 100, 100, 25);
+
+
+            /*JTextArea for Results (can't be edited)*/
+            JTextArea resultArea = new JTextArea();
+            resultArea.setEditable(false);
+            resultArea.setLineWrap(true);/*Moves to next line if no space left*/
+            resultArea.setWrapStyleWord(true);/*Prevents full words from being separated*/
+            resultArea.setBackground(Color.WHITE);
+            resultArea.setForeground(Color.BLACK);
+
+            JScrollPane scroller = new JScrollPane(resultArea);
+            scroller.setBounds(30, 200, 460, 200);
+            scroller.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+
+
+            /*Calculate calories button*/
+            JButton calButton = new JButton("Calculate Calories");
+            calButton.setBounds(30, 150, 180, 30);
+
+            calButton.addActionListener(ev ->
+            {
+                try
+                {
+                    String activity = (String) Boxin.getSelectedItem();
+                    double duration = Double.parseDouble(timeField.getText());
+                    double distance = Double.parseDouble(distanceField.getText());
+
+                    double calories = Daily_Activity.calculateCalories(activity, duration, distance);
+                    resultArea.setText("Estimated Calories Burned: " + calories);
+                } 
+                catch (NumberFormatException ex) 
+                {
+                    resultArea.setText("Please enter valid numbers.");
+                }
+            });
+
+            RightPanel.add(ActivityChoice);
+            RightPanel.add(Boxin);
+            RightPanel.add(timeSelect);
+            RightPanel.add(timeField);
+            RightPanel.add(distanceSelect);
+            RightPanel.add(distanceField);
+            RightPanel.add(calButton);
+            RightPanel.add(scroller);
+
+            RightPanel.revalidate();
+            RightPanel.repaint();
+        });
 
         
-        revalidate();
-        repaint();
 
         setVisible(true);
     }
