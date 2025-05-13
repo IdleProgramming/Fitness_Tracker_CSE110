@@ -1,12 +1,9 @@
 package Logic.Login;
 
-import java.io.*;
 /*File writer is used to write in files directly*/
-import java.io.BufferedReader;
 /*Buffered reader cannot read directly from files but it can read whole blocks of characters at a time*/
-import java.io.FileReader; 
 /*File reader can read directly from files but it only reads one character at a time*/
-import java.io.IOException;
+import java.io.*;
 
 public class Account_Create
 {
@@ -14,7 +11,15 @@ public class Account_Create
     {   
 
         try         
-        {
+        {    
+            /*Creates File if it doesnt exist*/     
+            File file = new File("users.txt");
+            if (!file.exists()) 
+            {
+                file.createNewFile();  
+            }
+
+
             /*Makes sure username and password isnt just blank*/
             if (username.isEmpty() || password.isEmpty()) 
             {
